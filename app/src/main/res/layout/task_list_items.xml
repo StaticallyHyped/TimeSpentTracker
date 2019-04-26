@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tli_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="175dp"
+        tools:layout_editor_absoluteY="45dp"
+        tools:text="TaskTimer Application" />
+
+    <TextView
+        android:id="@+id/tli_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/design_default_color_primary"
+        android:textSize="22sp"
+        tools:layout_editor_absoluteX="175dp"
+        tools:layout_editor_absoluteY="132dp"
+        tools:text="Edit course notes" />
+
+    <ImageButton
+        android:id="@+id/tli_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/edit_button_description"
+        app:srcCompat="@android:drawable/ic_menu_edit"
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="216dp" />
+</android.support.constraint.ConstraintLayout>
