@@ -1,8 +1,10 @@
 package com.example.timespenttracker;
 
-
-//Basic database class for the application
-// the only class that should use this is AppProvider
+/***
+ * //Basic database class for the application
+ * // the only class that should use this is {@Link AppProvider}
+ *
+ */
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,8 +16,11 @@ import android.util.Log;
 
 class AppDatabase extends SQLiteOpenHelper {
     private static final String TAG = "AppDatabase";
-    public static final String DATABASE_NAME = "TaskTimer.db";
+
+    public static final String DATABASE_NAME = "TimeSpentTracker.db";
     public static final int DATABASE_VERSION = 1;
+
+    // Implement AppDatabase as a Singleton
     private static AppDatabase instance = null;
 
     private AppDatabase(Context context) {
@@ -25,7 +30,8 @@ class AppDatabase extends SQLiteOpenHelper {
 
     //gets instance of the app's singleton database helper object
     static AppDatabase getInstance(Context context) {
-        if (instance == null) {
+        if(instance == null) {
+            Log.d(TAG, "getInstance: creating new instance");
             instance = new AppDatabase(context);
         }
         return instance;
@@ -33,23 +39,33 @@ class AppDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sSQL; //use a string variable to facilitate logging
-        sSQL = "CREATE TABLE Tasks (_id INTEGER PRIMARY KEY NOT NULL, Name TEXT NOT NULL, Description TEXT, SortOrder INTEGER);";
-        Log.d(TAG, "Inside the oncreate method, creates table");
+        Log.d(TAG, "onCreate: starts");
+        String sSQL;    // Use a string variable to facilitate logging
+//        sSQL = "CREATE TABLE Tasks (_id INTEGER PRIMARY KEY NOT NULL, Name TEXT NOT NULL, Description TEXT, SortOrder INTEGER, CategoryID INTEGER);";
+        sSQL = "CREATE TABLE " + TasksContract.TABLE_NAME + " ("
+                + TasksContract.Columns._ID + " INTEGER PRIMARY KEY NOT NULL, "
+                + TasksContract.Columns.TASKS_NAME + " TEXT NOT NULL, "
+                + TasksContract.Columns.TASKS_DESCRIPTION + " TEXT, "
+                + TasksContract.Columns.TASKS_SORTORDER + " INTEGER);";
+        //Inside the oncreate method, creates table
+        Log.d(TAG, sSQL);
         db.execSQL(sSQL);
+
+        Log.d(TAG, "onCreate: ends");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(TAG, "onUpgrade: starts");
-        switch (oldVersion){
+        switch(oldVersion) {
             case 1:
+                // upgrade logic from version 1
                 break;
-                default:
-                    throw new IllegalStateException("onUpgrade() with unkonwn newVersion: " + newVersion);
+            default:
+                throw new IllegalStateException("onUpgrade() with unknown newVersion: " + newVersion);
 
         }
-        Log.d(TAG, "end");
+        Log.d(TAG, "onUpgrade: ends");
     }
 
 }
